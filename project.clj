@@ -9,16 +9,10 @@
   :source-paths ["src/clojure" "src"]
   :java-source-paths ["src/java"]
   :javac-options ["-target" "1.6" "-source" "1.6" "-Xlint:-options"]
+  :plugins [[lein-droid "0.4.1"]]
 
-  :plugins [[lein-droid "0.4.0-SNAPSHOT"]]
-
-  ;; Uncomment this line if your project doesn't use Clojure. Also
-  ;; don't forget to remove respective dependencies.
-  ;; :java-only true
-
-  :dependencies [[org.clojure-android/clojure "1.7.0-alpha6" :use-resources true]
+  :dependencies [[org.clojure-android/clojure "1.7.0-r2"]
                  [neko/neko "3.2.0"]]
-
   :profiles {:default [:dev]
 
              :dev
@@ -26,13 +20,8 @@
               {:dependencies [[org.clojure/tools.nrepl "0.2.10"]]
                :target-path "target/debug"
                :android {:aot :all-with-unused
-                         ;; The namespace of the app package - having a
-                         ;; different one for dev and release allows you to
-                         ;; install both at the same time.
                          :rename-manifest-package "com.msgodf.cljondroid.debug"
-                         :manifest-options {:app-name "Android sample debug"}
-                         }}]
-
+                         :manifest-options {:app-name "Android sample debug"}}}]
              :release
              [:android-common
               {:target-path "target/release"
@@ -50,28 +39,7 @@
                          :ignore-log-priority [:debug :verbose]
                          :aot :all
 
-                         :build-type :release}}]
-
-             :lean
-             [:release
-              {:dependencies ^:replace [[org.skummet/clojure "1.7.0-alpha5-r4" :use-resources true]
-                                        [neko/neko "3.2.0"]]
-               :exclusions [[org.clojure/clojure]
-                            [org.clojure-android/clojure]]
-               :jvm-opts ["-Dclojure.compile.ignore-lean-classes=true"]
-               :global-vars ^:replace {clojure.core/*warn-on-reflection* true}
-               :android {
-                         :proguard-execute true
-                         :proguard-conf-path "proguard.conf"
-                         :lean-compile true
-                         :skummet-skip-vars ["#'neko.init/init"
-                                             "#'neko.context/context"
-                                             "#'neko.resource/package-name"
-                                             "#'neko.-utils/keyword->static-field"
-                                             "#'neko.-utils/keyword->setter"
-                                             "#'neko.ui.traits/get-display-metrics"
-                                             "#'com.msgodf.cljondroid.main/MainActivity-onCreate"
-                                             "#'com.msgodf.cljondroid.main/MainActivity-init"]}}]}
+                         :build-type :release}}]}
 
   :android {;; Specify the path to the Android SDK directory either here or in
             ;; :android-common profile in your ~/.lein/profiles.clj file.
