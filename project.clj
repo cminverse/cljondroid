@@ -83,7 +83,7 @@
             ;; :native-libraries-paths ["path/to/native/library"]
 
             ;; Target version affects api used for compilation.
-            :target-version 19
+            :target-version 15
 
             ;; Sequence of namespaces that should not be compiled.
             :aot-exclude-ns ["clojure.parallel" "clojure.core.reducers"]
